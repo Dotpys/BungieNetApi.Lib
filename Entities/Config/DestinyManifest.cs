@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Destiny.Config
+namespace BungieNetApi.Entities.Destiny.Config
 {
 
     public struct DestinyManifest

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Destiny.Config;
+using BungieNetApi.Converters;
+using BungieNetApi.Entities.Destiny.Config;
+using BungieNetApi.Entities.User;
 
 namespace BungieNetApi
 {
@@ -12,20 +15,29 @@ namespace BungieNetApi
     {
         public const string HOST = "https://www.bungie.net";
 
-        public static async Task<DestinyManifest?> GetDestinyManifest(HttpClient httpClient, string apiKey)
+        public static async Task<DestinyManifest?> GetDestinyManifestAsync(HttpClient httpClient, string apiKey)
         {
             if (!httpClient.DefaultRequestHeaders.Contains("X-API-Key"))
-            {
                 httpClient.DefaultRequestHeaders.Add("X-API-Key", apiKey);
-            }
-            HttpResponseMessage response = await httpClient.GetAsync(HOST + "/Platform/Destiny2/Manifest/");
-            if (response.IsSuccessStatusCode)
+            string requestUri = $"{HOST}/Platform/Destiny2/Manifest/";
+            var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyManifest>>(requestUri);
+            return response.Response;
+        }
+
+        public static async Task<ICollection<UserInfoCard>> SearchDestinyPlayer(HttpClient httpClient, string apiKey, string displayName, int membershipType, bool returnOriginalProfile=false)
+        {
+            if (!httpClient.DefaultRequestHeaders.Contains("X-API-Key"))
+                httpClient.DefaultRequestHeaders.Add("X-API-Key", apiKey);
+            string requestUri = $"{HOST}/Platform/Destiny2/SearchDestinyPlayer/{membershipType}/{displayName}?returnOriginalProfile={returnOriginalProfile}";
+            var jsonOptions = new JsonSerializerOptions()
             {
-                string jsonContent = await response.Content.ReadAsStringAsync();
-                var bungieResponse = JsonSerializer.Deserialize<BungieResponse<DestinyManifest>>(jsonContent);
-                return bungieResponse.Response;
-            }
-            return null;
+                Converters =
+                {
+                    new LongConverter()
+                }
+            };
+            var response = await httpClient.GetFromJsonAsync<BungieResponse<ICollection<UserInfoCard>>>(requestUri, jsonOptions);
+            return response.Response;
         }
     }
 }

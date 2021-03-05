@@ -1,7 +1,7 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace Destiny.Config
+namespace BungieNetApi.Entities.Destiny.Config
 {
     public struct GearAssetDataBaseDefinition
     {
