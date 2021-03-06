@@ -95,9 +95,9 @@ This is a class library wich contains a simple wrapper for the [Bungie.Net](http
 | Http Method | Api | Supported |
 | ----------- | --- | --------- |
 | GET | Destiny2.GetDestinyManifest | 🟢 |
-| GET | Destiny2.GetDestinyEntityDefinition | 🔴 |
+| GET | Destiny2.GetDestinyEntityDefinition | 🟢 |
 | GET | Destiny2.SearchDestinyPlayer | 🟢 |
-| GET | Destiny2.GetLinkedProfiles | 🔴 |
+| GET | Destiny2.GetLinkedProfiles | 🟢 |
 | GET | Destiny2.GetProfile | 🔴 |
 | GET | Destiny2.GetCharacter | 🔴 |
 | GET | Destiny2.GetClanWeeklyRewardState | 🔴 |
