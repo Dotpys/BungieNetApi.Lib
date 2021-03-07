@@ -7,10 +7,13 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using BungieNetApi.Converters;
 using BungieNetApi.Entities;
+using BungieNetApi.Entities.Destiny;
 using BungieNetApi.Entities.Destiny.Config;
 using BungieNetApi.Entities.Destiny.Definitions;
 using BungieNetApi.Entities.Destiny.Responses;
 using BungieNetApi.Entities.User;
+
+using System.Linq;
 
 namespace BungieNetApi
 {
@@ -86,6 +89,15 @@ namespace BungieNetApi
 				httpClient.DefaultRequestHeaders.Add("X-API-Key", apiKey);
 			string requestUri = $"{HOST}/Platform/Destiny2/{membershipType}/Profile/{membershipId}/LinkedProfiles/?getAllMemberships={getAllMemberships}";
 			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyLinkedProfilesResponse>>(requestUri, jsonOptions);
+			return response.Response;
+		}
+
+		public static async Task<DestinyProfileResponse> GetProfileAsync(HttpClient httpClient, string apiKey, long destinyMembershipId, BungieMembershipType membershipType, DestinyComponentType[] components)
+		{
+			if (!httpClient.DefaultRequestHeaders.Contains("X-API-Key"))
+				httpClient.DefaultRequestHeaders.Add("X-API-Key", apiKey);
+			string requestUri = $"{HOST}/Platform/Destiny2/{membershipType}/Profile/{destinyMembershipId}/?components={string.Join(',', components.Select( c => (int)c))}";
+			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyProfileResponse>>(requestUri, jsonOptions);
 			return response.Response;
 		}
 	}
