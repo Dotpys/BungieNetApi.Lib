@@ -64,6 +64,12 @@ namespace BungieNetApi.Entities.Destiny.Responses
 		[JsonPropertyName("profileRecords")]
 		public SingleComponentResponseOfDestinyProfileRecordsComponent ProfileRecords { get; set; }
 
+		[JsonPropertyName("profileCollectibles")]
+		public SingleComponentResponseOfDestinyProfileCollectiblesComponent ProfileCollectibles { get; set; }
+
+		[JsonPropertyName("profileTransitoryData")]
+		public SingleComponentResponseOfDestinyProfileTransitoryComponent ProfileTransitoryData { get; set; }
+
 		//TODO: Add remaining fields.
 	}
 }

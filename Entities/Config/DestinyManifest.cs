@@ -7,7 +7,7 @@ namespace BungieNetApi.Entities.Destiny.Config
 	/// <summary>
 	/// DestinyManifest is the external-facing contract for just the properties needed by those calling the Destiny Platform.
 	/// </summary>
-	public struct DestinyManifest
+	public class DestinyManifest
 	{
 		[JsonPropertyName("version")]
 		public string Version { get; set; }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using BungieNetApi.Converters;
 using BungieNetApi.Entities;
@@ -33,10 +32,9 @@ namespace BungieNetApi
 		/// </summary>
 		/// <param name="httpClient">The http client that will be used to make the actual request.</param>
 		/// <param name="apiKey">The api key used to authenticate the app to the Bungie.net platform.</param>
-		public static async Task<DestinyManifest?> GetDestinyManifestAsync(HttpClient httpClient, string apiKey)
+		public static async Task<DestinyManifest> GetDestinyManifestAsync(HttpClient httpClient, string apiKey)
 		{
-			if (!httpClient.DefaultRequestHeaders.Contains("X-API-Key"))
-				httpClient.DefaultRequestHeaders.Add("X-API-Key", apiKey);
+			httpClient.EnsureApiKey(apiKey);
 			string requestUri = $"{HOST}/Platform/Destiny2/Manifest/";
 			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyManifest>>(requestUri, jsonOptions);
 			return response.Response;
@@ -51,8 +49,7 @@ namespace BungieNetApi
 		/// <param name="hashIdentifier">The hash identifier for the specific Entity you want returned.</param>
 		public static async Task<DestinyDefinition> GetDestinyEntityDefinitionAsync(HttpClient httpClient, string apiKey, string entityType, uint hashIdentifier)
 		{
-			if (!httpClient.DefaultRequestHeaders.Contains("X-API-Key"))
-				httpClient.DefaultRequestHeaders.Add("X-API-Key", apiKey);
+			httpClient.EnsureApiKey(apiKey);
 			string requestUri = $"{HOST}/Platform/Destiny2/Manifest/{entityType}/{hashIdentifier}/";
 			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyDefinition>>(requestUri, jsonOptions);
 			return response.Response;
@@ -68,8 +65,7 @@ namespace BungieNetApi
 		/// <param name="returnOriginalProfile">(optional) If passed in and set to true, we will return the original Destiny Profile(s) linked to that gamertag, and not their currently active Destiny Profile.</param>
 		public static async Task<ICollection<UserInfoCard>> SearchDestinyPlayerAsync(HttpClient httpClient, string apiKey, string displayName, BungieMembershipType membershipType, bool returnOriginalProfile=false)
 		{
-			if (!httpClient.DefaultRequestHeaders.Contains("X-API-Key"))
-				httpClient.DefaultRequestHeaders.Add("X-API-Key", apiKey);
+			httpClient.EnsureApiKey(apiKey);
 			string requestUri = $"{HOST}/Platform/Destiny2/SearchDestinyPlayer/{membershipType}/{displayName}/?returnOriginalProfile={returnOriginalProfile}";
 			var response = await httpClient.GetFromJsonAsync<BungieResponse<ICollection<UserInfoCard>>>(requestUri, jsonOptions);
 			return response.Response;
@@ -85,8 +81,7 @@ namespace BungieNetApi
 		/// <param name="getAllMemberships">(optional) if set to 'true', all memberships regardless of whether they're obscured by overrides will be returned. Normal privacy restrictions on account linking will still apply no matter what.</param>
 		public static async Task<DestinyLinkedProfilesResponse> GetLinkedProfilesAsync(HttpClient httpClient, string apiKey, long membershipId, BungieMembershipType membershipType, bool getAllMemberships=false)
 		{
-			if (!httpClient.DefaultRequestHeaders.Contains("X-API-Key"))
-				httpClient.DefaultRequestHeaders.Add("X-API-Key", apiKey);
+			httpClient.EnsureApiKey(apiKey);
 			string requestUri = $"{HOST}/Platform/Destiny2/{membershipType}/Profile/{membershipId}/LinkedProfiles/?getAllMemberships={getAllMemberships}";
 			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyLinkedProfilesResponse>>(requestUri, jsonOptions);
 			return response.Response;
@@ -94,8 +89,7 @@ namespace BungieNetApi
 
 		public static async Task<DestinyProfileResponse> GetProfileAsync(HttpClient httpClient, string apiKey, long destinyMembershipId, BungieMembershipType membershipType, DestinyComponentType[] components)
 		{
-			if (!httpClient.DefaultRequestHeaders.Contains("X-API-Key"))
-				httpClient.DefaultRequestHeaders.Add("X-API-Key", apiKey);
+			httpClient.EnsureApiKey(apiKey);
 			string requestUri = $"{HOST}/Platform/Destiny2/{membershipType}/Profile/{destinyMembershipId}/?components={string.Join(',', components.Select( c => (int)c))}";
 			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyProfileResponse>>(requestUri, jsonOptions);
 			return response.Response;
