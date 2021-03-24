@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading.Tasks;
-using BungieNetApi.Converters;
 using BungieNetApi.Entities;
 using BungieNetApi.Entities.Destiny;
 using BungieNetApi.Entities.Destiny.Config;
@@ -18,15 +16,6 @@ namespace BungieNetApi
 {
 	public class Destiny2
 	{
-		public const string HOST = "https://www.bungie.net";
-		private static JsonSerializerOptions jsonOptions = new JsonSerializerOptions()
-		{
-			Converters =
-			{
-				new LongConverter()
-			}
-		};
-
 		/// <summary>
 		/// Returns the current version of the manifest as a json object.
 		/// </summary>
@@ -35,8 +24,8 @@ namespace BungieNetApi
 		public static async Task<DestinyManifest> GetDestinyManifestAsync(HttpClient httpClient, string apiKey)
 		{
 			httpClient.EnsureApiKey(apiKey);
-			string requestUri = $"{HOST}/Platform/Destiny2/Manifest/";
-			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyManifest>>(requestUri, jsonOptions);
+			string requestUri = $"{StaticData.BUNGIE_NET_ENDPOINT}/Platform/Destiny2/Manifest/";
+			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyManifest>>(requestUri, StaticData.bungieApiJsonConverter);
 			return response.Response;
 		}
 
@@ -50,8 +39,8 @@ namespace BungieNetApi
 		public static async Task<DestinyDefinition> GetDestinyEntityDefinitionAsync(HttpClient httpClient, string apiKey, string entityType, uint hashIdentifier)
 		{
 			httpClient.EnsureApiKey(apiKey);
-			string requestUri = $"{HOST}/Platform/Destiny2/Manifest/{entityType}/{hashIdentifier}/";
-			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyDefinition>>(requestUri, jsonOptions);
+			string requestUri = $"{StaticData.BUNGIE_NET_ENDPOINT}/Platform/Destiny2/Manifest/{entityType}/{hashIdentifier}/";
+			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyDefinition>>(requestUri, StaticData.bungieApiJsonConverter);
 			return response.Response;
 		}
 
@@ -66,8 +55,8 @@ namespace BungieNetApi
 		public static async Task<ICollection<UserInfoCard>> SearchDestinyPlayerAsync(HttpClient httpClient, string apiKey, string displayName, BungieMembershipType membershipType, bool returnOriginalProfile=false)
 		{
 			httpClient.EnsureApiKey(apiKey);
-			string requestUri = $"{HOST}/Platform/Destiny2/SearchDestinyPlayer/{membershipType}/{displayName}/?returnOriginalProfile={returnOriginalProfile}";
-			var response = await httpClient.GetFromJsonAsync<BungieResponse<ICollection<UserInfoCard>>>(requestUri, jsonOptions);
+			string requestUri = $"{StaticData.BUNGIE_NET_ENDPOINT}/Platform/Destiny2/SearchDestinyPlayer/{membershipType}/{displayName}/?returnOriginalProfile={returnOriginalProfile}";
+			var response = await httpClient.GetFromJsonAsync<BungieResponse<ICollection<UserInfoCard>>>(requestUri, StaticData.bungieApiJsonConverter);
 			return response.Response;
 		}
 
@@ -82,16 +71,16 @@ namespace BungieNetApi
 		public static async Task<DestinyLinkedProfilesResponse> GetLinkedProfilesAsync(HttpClient httpClient, string apiKey, long membershipId, BungieMembershipType membershipType, bool getAllMemberships=false)
 		{
 			httpClient.EnsureApiKey(apiKey);
-			string requestUri = $"{HOST}/Platform/Destiny2/{membershipType}/Profile/{membershipId}/LinkedProfiles/?getAllMemberships={getAllMemberships}";
-			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyLinkedProfilesResponse>>(requestUri, jsonOptions);
+			string requestUri = $"{StaticData.BUNGIE_NET_ENDPOINT}/Platform/Destiny2/{membershipType}/Profile/{membershipId}/LinkedProfiles/?getAllMemberships={getAllMemberships}";
+			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyLinkedProfilesResponse>>(requestUri, StaticData.bungieApiJsonConverter);
 			return response.Response;
 		}
 
 		public static async Task<DestinyProfileResponse> GetProfileAsync(HttpClient httpClient, string apiKey, long destinyMembershipId, BungieMembershipType membershipType, DestinyComponentType[] components)
 		{
 			httpClient.EnsureApiKey(apiKey);
-			string requestUri = $"{HOST}/Platform/Destiny2/{membershipType}/Profile/{destinyMembershipId}/?components={string.Join(',', components.Select( c => (int)c))}";
-			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyProfileResponse>>(requestUri, jsonOptions);
+			string requestUri = $"{StaticData.BUNGIE_NET_ENDPOINT}/Platform/Destiny2/{membershipType}/Profile/{destinyMembershipId}/?components={string.Join(',', components.Select( c => (int)c))}";
+			var response = await httpClient.GetFromJsonAsync<BungieResponse<DestinyProfileResponse>>(requestUri, StaticData.bungieApiJsonConverter);
 			return response.Response;
 		}
 	}

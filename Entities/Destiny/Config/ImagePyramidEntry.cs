@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace BungieNetApi.Entities.Destiny.Config
 {
-	public struct ImagePyramidEntry
+	public class ImagePyramidEntry
 	{
 		/// <summary>
 		/// The name of the subfolder where these images are located.

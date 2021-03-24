@@ -15,10 +15,10 @@ This is a class library wich contains a simple wrapper for the [Bungie.Net](http
 ## User
 | Http Method | Api | Supported |
 | ----------- | --- | --------- |
-| GET | User.GetBungieNetUserById | 🔴 |
-| GET | User.SearchUsers | 🔴 |
-| GET | User.GetCredentialTypesForTargetAccount | 🔴 |
-| GET | User.GetAvaiableThemes | 🔴 |
+| GET | User.GetBungieNetUserById | 🟢 |
+| GET | User.SearchUsers | 🟢 |
+| GET | User.GetCredentialTypesForTargetAccount | 🟢 |
+| GET | User.GetAvaiableThemes | 🟢 |
 | GET | User.GetMembershipDataById | 🔴 |
 | GET | User.GetMembershipDataForCurrentUser | 🔴 |
 | GET | User.GetMembershipFromHardLinkedCredential | 🔴 |
