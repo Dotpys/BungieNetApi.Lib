@@ -19,7 +19,7 @@ This is a class library wich contains a simple wrapper for the [Bungie.Net](http
 | GET | User.SearchUsers | 🟢 |
 | GET | User.GetCredentialTypesForTargetAccount | 🟢 |
 | GET | User.GetAvaiableThemes | 🟢 |
-| GET | User.GetMembershipDataById | 🔴 |
+| GET | User.GetMembershipDataById | 🟢 |
 | GET | User.GetMembershipDataForCurrentUser | 🔴 |
 | GET | User.GetMembershipFromHardLinkedCredential | 🔴 |
 

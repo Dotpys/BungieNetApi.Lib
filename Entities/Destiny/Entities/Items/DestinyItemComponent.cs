@@ -13,14 +13,16 @@ namespace BungieNetApi.Entities.Destiny.Entities.Items
 		/// The identifier for the item's definition, which is where most of the useful static information for the item can be found.
 		/// </summary>
 		/// <remarks>Mapped to Destiny.Definitions.DestinyInventoryItemDefinition</remarks>
-		[JsonPropertyName("itemHash")]
-		public uint ItemHash { get; set; }
+		//[JsonPropertyName("itemHash")]
+		//public uint ItemHash { get; set; }
 
 		/// <summary>
 		/// If the item is instanced, it will have an instance ID. Lack of an instance ID implies that the item has no distinct local qualities aside from stack size.
 		/// </summary>
 		[JsonPropertyName("itemInstanceId")]
 		public ulong? ItemInstanceId { get; set; }
+
+		/*
 
 		/// <summary>
 		/// The quantity of the item in this stack. Note that Instanced items cannot stack. If an instanced item, this value will always be 1 (as the stack has exactly one item in it)
@@ -109,5 +111,7 @@ namespace BungieNetApi.Entities.Destiny.Entities.Items
 		/// </summary>
 		[JsonPropertyName("versionNumber")]
 		public int? VersionNumber { get; set; }
+
+		*/
 	}
 }
