@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace BungieNetApi.Entities.Destiny.Definitions
+namespace BungieNetApi.Entities.Destiny.Definitions;
 
 public class DestinyProgressionRewardDefinition
 {

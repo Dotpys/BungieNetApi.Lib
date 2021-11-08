@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace BungieNetApi.Entities.Destiny.Definitions;
@@ -25,7 +24,6 @@ public abstract class DestinyDefinition
 
 	/// <summary>
 	/// If this is true, then there is an entity with this identifier/type combination, but BNet is not yet allowed to show it.
-	/// Sorry!
 	/// </summary>
 	[JsonPropertyName("redacted")]
 	public bool Redacted { get; set; }

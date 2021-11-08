@@ -1,5 +1,5 @@
 # BungieNetApi
-This is a class library wich contains a simple wrapper for the [Bungie.Net](https://github.com/Bungie-net/api) API targeting .Net 5.
+This is a class library wich contains a simple wrapper for the [Bungie.Net](https://github.com/Bungie-net/api) API targeting .Net 6.
 
 # Current support:
 - 🟢 Supported API 
