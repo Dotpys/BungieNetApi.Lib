@@ -1,5 +1,8 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
+
+using BungieNetApi.Entities.Destiny.Perks;
 using BungieNetApi.Entities.Destiny.Quests;
 
 namespace BungieNetApi.Entities.Destiny.Entities.Items;
@@ -7,7 +10,7 @@ namespace BungieNetApi.Entities.Destiny.Entities.Items;
 /// <summary>
 /// The base item component, filled with properties that are generally useful to know in any item request or that don't feel worthwhile to put in their own component.
 /// </summary>
-public struct DestinyItemComponent
+public class DestinyItemComponent
 {
 	/// <summary>
 	/// The identifier for the item's definition, which is where most of the useful static information for the item can be found.
@@ -21,8 +24,6 @@ public struct DestinyItemComponent
 	/// </summary>
 	[JsonPropertyName("itemInstanceId")]
 	public ulong? ItemInstanceId { get; set; }
-
-	/*
 
 	/// <summary>
 	/// The quantity of the item in this stack. Note that Instanced items cannot stack. If an instanced item, this value will always be 1 (as the stack has exactly one item in it)
@@ -111,6 +112,147 @@ public struct DestinyItemComponent
 	/// </summary>
 	[JsonPropertyName("versionNumber")]
 	public int? VersionNumber { get; set; }
+}
 
-	*/
+public class DestinyItemRenderComponent
+{
+	[JsonPropertyName("useCustomDyes")]
+	public bool UseCustomDyes { get; set; }
+
+	[JsonPropertyName("artRegions")]
+	public Dictionary<int, int> ArtRegions { get; set; }
+}
+
+public class DestinyItemPerksComponent
+{
+	[JsonPropertyName("perks")]
+	public DestinyPerkReference[] Perks { get; set; }
+}
+
+public class DestinyItemInstanceComponent
+{
+	[JsonPropertyName("damageType")]
+	public int DamageType { get; set; }
+
+	[JsonPropertyName("damageTypeHash")]
+	public uint? DamageTypeHash { get; set; }
+
+	[JsonPropertyName("primaryStat")]
+	public DestinyStat PrimaryStat { get; set; }
+
+	[JsonPropertyName("itemLevel")]
+	public int ItemLevel { get; set; }
+
+	[JsonPropertyName("quality")]
+	public int Quality { get; set; }
+
+	[JsonPropertyName("isEquipped")]
+	public bool IsEquipped { get; set; }
+
+	[JsonPropertyName("canEquip")]
+	public bool CanEquip { get; set; }
+
+	[JsonPropertyName("equipRequiredLevel")]
+	public int EquipRequiredLevel { get; set; }
+
+	[JsonPropertyName("unlockHashesRequiredToEquip")]
+	public uint UnlockHashesRequiredToEquip { get; set; }
+
+	[JsonPropertyName("cannotEquipReason")]
+	public int CannotEquipReason { get; set; }
+
+	[JsonPropertyName("breakerType")]
+	public int? BreakerType { get; set; }
+
+	[JsonPropertyName("breakerTypeHash")]
+	public int? BreakerTypeHash { get; set; }
+
+	[JsonPropertyName("energy")]
+	public DestinyItemInstanceEnergy Energy { get; set; }
+}
+
+public class DestinyItemInstanceEnergy
+{
+	[JsonPropertyName("energyTypeHash")]
+	public uint EnergyTypeHash { get; set; }
+
+	[JsonPropertyName("energyType")]
+	public int EnergyType { get; set; }
+
+	[JsonPropertyName("energyCapacity")]
+	public int EnergyCapacity { get; set; }
+
+	[JsonPropertyName("energyUsed")]
+	public int EnergyUsed { get; set; }
+
+	[JsonPropertyName("energyUnused")]
+	public int EnergyUnused { get; set; }
+}
+
+public class DestinyItemObjectivesComponent
+{
+	[JsonPropertyName("objectives")]
+	public DestinyObjectiveProgress[] Objectives { get; set; }
+
+	[JsonPropertyName("flavorObjective")]
+	public DestinyObjectiveProgress FlavorObjective { get; set; }
+
+	[JsonPropertyName("dateCompleted")]
+	public DateTime? DateCompleted { get; set; }
+}
+
+public class DestinyItemStatsComponent
+{
+	[JsonPropertyName("stats")]
+	public Dictionary<uint, DestinyStat> Stats { get; set; }
+}
+
+public class DestinyItemSocketsComponent
+{
+	[JsonPropertyName("sockets")]
+	public DestinyItemSocketState[] Sockets { get; set; }
+}
+
+public class DestinyItemSocketState
+{
+	[JsonPropertyName("plugHash")]
+	public uint? PlugHash { get; set; }
+
+	[JsonPropertyName("isEnabled")]
+	public bool IsEnabled { get; set; }
+
+	[JsonPropertyName("isVisible")]
+	public bool IsVisible { get; set; }
+
+	[JsonPropertyName("enableFailIndexes")]
+	public int[] EnableFailIndexes { get; set; }
+}
+
+public class DestinyItemReusablePlugsComponent
+{
+	//TODO: WHAT?
+	[JsonPropertyName("plugs")]
+	public Dictionary<int, object> Plugs { get; set; }
+}
+
+public class DestinyItemPlugObjectivesComponent
+{
+	//TODO: WHAT?
+	[JsonPropertyName("objectivesPerPlug")]
+	public Dictionary<uint, object> ObjectivesPerPlug { get; set; }
+}
+
+public class DestinyItemTalentGridComponent
+{
+	[JsonPropertyName("talentGridHash")]
+	public uint TalentGridHash { get; set; }
+
+	[JsonPropertyName("nodes")]
+	public DestinyTalentNode[] Nodes { get; set; }
+
+	[JsonPropertyName("isGridComplete")]
+	public bool IsGridComplete { get; set; }
+
+	[JsonPropertyName("gridProgression")]
+	public DestinyProgression GridProgression { get; set; }
 }

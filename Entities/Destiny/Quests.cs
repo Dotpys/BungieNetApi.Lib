@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using BungieNetApi.Entities.User;
+﻿using System.Text.Json.Serialization;
 
 namespace BungieNetApi.Entities.Destiny.Quests;
 
 /// <summary>
 /// Returns data about a character's status with a given Objective. Combine with DestinyObjectiveDefinition static data for display purposes.
 /// </summary>
-public struct DestinyObjectiveProgress
+public class DestinyObjectiveProgress
 {
 	/// <summary>
 	/// The unique identifier of the Objective being referred to. Use to look up the DestinyObjectiveDefinition in static data.
@@ -56,4 +53,34 @@ public struct DestinyObjectiveProgress
 	/// </summary>
 	[JsonPropertyName("visible")]
 	public bool Visible { get; set; }
+}
+
+public class DestinyQuestStatus
+{
+	[JsonPropertyName("questHash")]
+	public uint QuestHash { get; set; }
+
+	[JsonPropertyName("stepHash")]
+	public uint StepHash { get; set; }
+
+	[JsonPropertyName("stepObjectives")]
+	public DestinyObjectiveProgress[] StepObjectives { get; set; }
+
+	[JsonPropertyName("tracked")]
+	public bool Tracked { get; set; }
+
+	[JsonPropertyName("itemInstanceId")]
+	public long ItemInstanceId { get; set; }
+
+	[JsonPropertyName("completed")]
+	public bool Completed { get; set; }
+
+	[JsonPropertyName("redeemed")]
+	public bool Redeemed { get; set; }
+
+	[JsonPropertyName("started")]
+	public bool Started { get; set; }
+
+	[JsonPropertyName("vendorHash")]
+	public uint? VendorHash { get; set; }
 }

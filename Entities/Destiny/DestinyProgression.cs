@@ -7,14 +7,14 @@ namespace BungieNetApi.Entities.Destiny;
 /// <summary>
 /// Information about a current character's status with a Progression. A progression is a value that can increase with activity and has levels. Think Character Level and Reputation Levels. Combine this "live" data with the related DestinyProgressionDefinition for a full picture of the Progression.
 /// </summary>
-public struct DestinyProgression
+public class DestinyProgression
 {
 	/// <summary>
 	/// The hash identifier of the Progression in question. Use it to look up the DestinyProgressionDefinition in static data.
 	/// </summary>
 	/// <remarks>Mapped to Destiny.Definitions.DestinyProgressionDefinition</remarks>
 	[JsonPropertyName("progressionHash")]
-	public uint progressionHash { get; set; }
+	public uint ProgressionHash { get; set; }
 
 	/// <summary>
 	/// The amount of progress earned today for this progression.
@@ -44,7 +44,7 @@ public struct DestinyProgression
 	/// This is the total amount of progress obtained overall for this progression (for instance, the total amount of Character Level experience earned)
 	/// </summary>
 	[JsonPropertyName("currentProgress")]
-	public int currentProgress { get; set; }
+	public int CurrentProgress { get; set; }
 
 	/// <summary>
 	/// This is the level of the progression (for instance, the Character Level).

@@ -1,10 +1,11 @@
-using System;
+﻿using BungieNetApi.Entities.Destiny.Quests;
+
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace BungieNetApi.Entities.Destiny.Components.Records;
 
-public struct DestinyProfileRecordsComponent
+public class DestinyProfileRecordsComponent
 {
 	/// <summary>
 	/// Your 'active' Triumphs score, maintained for backwards compatibility.
@@ -16,7 +17,7 @@ public struct DestinyProfileRecordsComponent
 	/// Your 'active' Triumphs score.
 	/// </summary>
 	[JsonPropertyName("activeScore")]
-	public int activeScore { get; set; }
+	public int ActiveScore { get; set; }
 
 	/// <summary>
 	/// Your 'legacy' Triumphs score.
@@ -51,6 +52,36 @@ public struct DestinyProfileRecordsComponent
 	/// The hash for the root presentation node definition of Triumph Seals.
 	/// </summary>
 	/// <remarks>Mapped to Destiny.Definitions.Presentation.DestinyPresentationNodeDefinition</remarks>
+	[JsonPropertyName("recordSealsRootNodeHash")]
+	public uint RecordSealsRootNodeHash { get; set; }
+}
+
+public class DestinyRecordComponent
+{
+	[JsonPropertyName("state")]
+	public int State { get; set; }
+
+	[JsonPropertyName("objectives")]
+	public DestinyObjectiveProgress[] Objectives { get; set; }
+
+	[JsonPropertyName("intervalObjectives")]
+	public DestinyObjectiveProgress[] IntervalObjectives { get; set; }
+
+	[JsonPropertyName("intervalsRedeemedCount")]
+	public int IntervalsRedeemedCount { get; set; }
+}
+
+public class DestinyCharacterRecordsComponent
+{
+	[JsonPropertyName("featuredRecordHashes")]
+	public uint[] FeaturedRecordHashes { get; set; }
+
+	[JsonPropertyName("records")]
+	public Dictionary<uint, DestinyRecordComponent> Records { get; set; }
+
+	[JsonPropertyName("recordCategoriesRootNodeHash")]
+	public uint RecordCategoriesRootNodeHash { get; set; }
+
 	[JsonPropertyName("recordSealsRootNodeHash")]
 	public uint RecordSealsRootNodeHash { get; set; }
 }

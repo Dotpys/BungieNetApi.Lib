@@ -79,7 +79,14 @@ public class Destiny2
 		return response.Response;
 	}
 
-	//TODO: Finire
+	/// <summary>
+	/// Returns Destiny Profile information for the supplied membership.
+	/// </summary>
+	/// <param name="httpClient">The http client that will be used to make the actual request.</param>
+	/// <param name="apiKey">The api key used to authenticate the app to the Bungie.net platform.</param>
+	/// <param name="destinyMembershipId">Destiny membership ID.</param>
+	/// <param name="membershipType">A valid non-BungieNet membership type.</param>
+	/// <param name="components">A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.</param>
 	public static async Task<DestinyProfileResponse> GetProfileAsync(HttpClient httpClient, string apiKey, long destinyMembershipId, BungieMembershipType membershipType, DestinyComponentType[] components)
 	{
 		httpClient.EnsureApiKey(apiKey);

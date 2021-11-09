@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BungieNetApi.Entities.Destiny.Entities.Items;
+
 using System.Text.Json.Serialization;
 
 namespace BungieNetApi.Entities.Destiny.Responses;
@@ -9,10 +10,10 @@ public class DestinyItemResponse
 	public long? CharacterId { get; set; }
 
 	[JsonPropertyName("item")]
-	public SingleComponentResponseOfDestinyItemComponent Item { get; set; }
+	public SingleDestinyComponent<DestinyItemComponent> Item { get; set; }
 
 	//TODO: Add missing properties.
 
 	[JsonPropertyName("renderData")]
-	public SingleComponentResponseOfDestinyItemRenderComponent RenderData { get; set; }
+	public SingleDestinyComponent<DestinyItemRenderComponent> RenderData { get; set; }
 }

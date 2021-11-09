@@ -1,6 +1,19 @@
-using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using BungieNetApi.Entities.User;
+
+using BungieNetApi.Entities.Destiny.Components.Collectibles;
+using BungieNetApi.Entities.Destiny.Components.Inventory;
+using BungieNetApi.Entities.Destiny.Components.Kiosks;
+using BungieNetApi.Entities.Destiny.Components.Metrics;
+using BungieNetApi.Entities.Destiny.Components.PlugSets;
+using BungieNetApi.Entities.Destiny.Components.Presentation;
+using BungieNetApi.Entities.Destiny.Components.Profiles;
+using BungieNetApi.Entities.Destiny.Components.Records;
+using BungieNetApi.Entities.Destiny.Components.StringVariables;
+using BungieNetApi.Entities.Destiny.Entities.Characters;
+using BungieNetApi.Entities.Destiny.Entities.Inventory;
+using BungieNetApi.Entities.Destiny.Entities.Profiles;
+using BungieNetApi.Entities.Profiles;
 
 namespace BungieNetApi.Entities.Destiny.Responses;
 
@@ -9,75 +22,90 @@ namespace BungieNetApi.Entities.Destiny.Responses;
 /// </summary>
 public struct DestinyProfileResponse
 {
-	/// <summary>
-	/// Recent, refundable purchases you have made from vendors. When will you use it? Couldn't say...
-	/// </summary>
 	[JsonPropertyName("vendorReceipts")]
-	public SingleComponentResponseOfDestinyVendorReceiptsComponent VendorReceipts { get; set; }
+	public SingleDestinyComponent<DestinyVendorReceiptsComponent> VendorReceipts { get; set; }
 
-	/// <summary>
-	/// The profile-level inventory of the Destiny Profile.
-	/// </summary>
 	[JsonPropertyName("profileInventory")]
-	public SingleComponentResponseOfDestinyInventoryComponent ProfileInventory { get; set; }
-	
-	/// <summary>
-	/// The profile-level currencies owned by the Destiny Profile.
-	/// </summary>
+	public SingleDestinyComponent<DestinyInventoryComponent> ProfileInventory { get; set; }
+
 	[JsonPropertyName("profileCurrencies")]
-	public SingleComponentResponseOfDestinyInventoryComponent ProfileCurrencies { get; set; }
+	public SingleDestinyComponent<DestinyInventoryComponent> ProfileCurrencies { get; set; }
 
-	/// <summary>
-	/// The basic information about the Destiny Profile (formerly "Account").
-	/// </summary>
 	[JsonPropertyName("profile")]
-	public SingleComponentResponseOfDestinyProfileComponent Profile { get; set; }
+	public SingleDestinyComponent<DestinyProfileComponent> Profile { get; set; }
 
-	/// <summary>
-	/// Silver quantities for any platform on which this Profile plays destiny.
-	/// </summary>
 	[JsonPropertyName("platformSilver")]
-	public SingleComponentResponseOfDestinyPlatformSilverComponent PlatformSilver { get; set; }
+	public SingleDestinyComponent<DestinyPlatformSilverComponent> PlatformSilver { get; set; }
 
-	/// <summary>
-	/// Items available from Kiosks that are available Profile-wide (i.e. across all characters)
-	/// </summary>
 	[JsonPropertyName("profileKiosks")]
-	public SingleComponentResponseOfDestinyKiosksComponent ProfileKiosks { get; set; }
+	public SingleDestinyComponent<DestinyKiosksComponent> ProfileKiosks { get; set; }
 
-	/// <summary>
-	/// When sockets refer to reusable Plug Sets (see DestinyPlugSetDefinition for more info), this is the set of plugs and their states that are profile-scoped.
-	/// This comes back with ItemSockets, as it is needed for a complete picture of the sockets on requested items.
-	/// </summary>
 	[JsonPropertyName("profilePlugSets")]
-	public SingleComponentResponseOfDestinyPlugSetsComponent ProfilePlugSets { get; set; }
+	public SingleDestinyComponent<DestinyPlugSetsComponent> ProfilePlugSets { get; set; }
 
-	/// <summary>
-	/// When we have progression information - such as Checklists - that may apply profile-wide, it will be returned here rather than in the per-character progression data.
-	/// </summary>
 	[JsonPropertyName("profileProgression")]
-	public SingleComponentResponseOfDestinyProfileProgressionComponent ProfileProgression { get; set; }
+	public SingleDestinyComponent<DestinyProfileProgressionComponent> ProfileProgression { get; set; }
 
 	[JsonPropertyName("profilePresentationNodes")]
-	public SingleComponentResponseOfDestinyPresentationNodesComponent ProfilePresentationNodes { get; set; }
+	public SingleDestinyComponent<DestinyPresentationNodesComponent> ProfilePresentationNodes { get; set; }
 
 	[JsonPropertyName("profileRecords")]
-	public SingleComponentResponseOfDestinyProfileRecordsComponent ProfileRecords { get; set; }
+	public SingleDestinyComponent<DestinyProfileRecordsComponent> ProfileRecords { get; set; }
 
 	[JsonPropertyName("profileCollectibles")]
-	public SingleComponentResponseOfDestinyProfileCollectiblesComponent ProfileCollectibles { get; set; }
+	public SingleDestinyComponent<DestinyProfileCollectiblesComponent> ProfileCollectibles { get; set; }
 
 	[JsonPropertyName("profileTransitoryData")]
-	public SingleComponentResponseOfDestinyProfileTransitoryComponent ProfileTransitoryData { get; set; }
+	public SingleDestinyComponent<DestinyProfileTransitoryComponent> ProfileTransitoryData { get; set; }
 
-	//[JsonPropertyName("metrics")]
-	//public SingleComponentResponseOfDestinyProfileTransitoryComponent ProfileTransitoryData { get; set; }
+	[JsonPropertyName("metrics")]
+	public SingleDestinyComponent<DestinyMetricsComponent> Metrics { get; set; }
+
+	[JsonPropertyName("profileStringVariables")]
+	public SingleDestinyComponent<DestinyStringVariablesComponent> ProfileStringVariables { get; set; }
 
 	[JsonPropertyName("characters")]
-	public DictionaryComponentResponseOfint64AndDestinyCharacterComponent Characters { get; set; }
+	public DictionaryDestinyComponent<long, Characters> Characters { get; set; }
 
-	//TODO: Add remaining fields.
+	[JsonPropertyName("characterInventories")]
+	public DictionaryDestinyComponent<long, DestinyInventoryComponent> CharacterInventories { get; set; }
+
+	[JsonPropertyName("characterProgressions")]
+	public DictionaryDestinyComponent<long, DestinyCharacterProgressionComponent> CharacterProgressions { get; set; }
+
+	[JsonPropertyName("characterRenderData")]
+	public DictionaryDestinyComponent<long, DestinyCharacterRenderComponent> CharacterRenderData { get; set; }
+
+	[JsonPropertyName("characterActivities")]
+	public DictionaryDestinyComponent<long, DestinyCharacterActivitiesComponent> CharacterActivities { get; set; }
 
 	[JsonPropertyName("characterEquipment")]
-	public DictionaryComponentResponseOfint64AndDestinyInventoryComponent CharacterEquipment { get; set; }
+	public DictionaryDestinyComponent<long, DestinyInventoryComponent> CharacterEquipment { get; set; }
+
+	[JsonPropertyName("characterKiosks")]
+	public DictionaryDestinyComponent<long, DestinyKiosksComponent> CharacterKiosks { get; set; }
+
+	[JsonPropertyName("characterPlugSets")]
+	public DictionaryDestinyComponent<long, DestinyPlugSetsComponent> CharacterPlugSets { get; set; }
+
+	[JsonPropertyName("characterUninstancedComponents")]
+	public Dictionary<long, DestinyBaseItemComponentSet<uint>> CharacterUninstancedComponents { get; set; }
+
+	[JsonPropertyName("characterPresentationNodes")]
+	public DictionaryDestinyComponent<long, DestinyPresentationNodesComponent> CharacterPresentationNodes { get; set; }
+
+	[JsonPropertyName("characterRecords")]
+	public DictionaryDestinyComponent<long, DestinyCharacterRecordsComponent> CharacterRecords { get; set; }
+
+	[JsonPropertyName("characterCollectibles")]
+	public DictionaryDestinyComponent<long, DestinyCollectibleComponent> CharacterCollectibles { get; set; }
+
+	[JsonPropertyName("characterStringVariables")]
+	public DictionaryDestinyComponent<long, DestinyStringVariablesComponent> CharacterStringVariables { get; set; }
+
+	[JsonPropertyName("itemComponents")]
+	public DestinyItemComponentSet<long> ItemComponents { get; set; }
+
+	[JsonPropertyName("characterCurrencyLookups")]
+	public DictionaryDestinyComponent<long, DestinyCurrenciesComponent> CharacterCurrencyLookups { get; set; }
 }
